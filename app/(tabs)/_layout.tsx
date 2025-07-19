@@ -1,45 +1,104 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+// import Ionicons from "@expo/vector-icons/Ionicons";
+// import { Tabs } from "expo-router";
+// import React from "react";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+// const BottomTab = () => {
+//   return (
+//     <Tabs
+//       screenOptions={({ route }) => ({
+//         tabBarActiveTintColor: "red",
+//         tabBarInactiveTintColor: "gray",
+//         // tabBarShowLabel: false,
+//         // tabBarActiveBackgroundColor: "skyblue",
+//         // tabBarInactiveBackgroundColor: "rgba(0,0,0,0.4)",
+//         tabBarStyle: {
+//           // height: 190,
+//           // paddingTop: 60,
+//           // backgroundColor: "red",
+//           marginBottom: 50,
+//           marginHorizontal: 20,
+//           borderRadius: 20,
+//           height: 90,
+//           paddingTop: 20,
+//         },
+//         headerStyle: {
+//           backgroundColor: "red",
+//         },
+//         headerTintColor: "white",
+//         headerTitleAlign: "center",
+//         headerTitleStyle: {
+//           fontSize: 22,
+//           fontWeight: "bold",
+//         },
+//         headerShadowVisible: true,
+//         headerTransparent: false,
+//         tabBarIcon: ({ color, focused, size }) => {
+//           let iconName = "";
+//           if (route?.name === "index") {
+//             iconName = focused ? "home" : "home-outline";
+//           } else if (route?.name === "profile") {
+//             iconName = focused ? "person" : "person-outline";
+//           } else if (route?.name === "settings") {
+//             iconName = focused ? "settings" : "settings-outline";
+//           }
+//           return <Ionicons name={iconName as any} size={size} color={color} />;
+//         },
+//       })}
+//     >
+//       <Tabs.Screen
+//         name="index"
+//         options={{
+//           title: "Home Screen",
+//           headerStyle: {
+//             backgroundColor: "blue",
+//           },
+//           headerTitleAlign: "left",
+//           // tabBarBadge: 0,
+//           // tabBarBadgeStyle: {
+//           //   backgroundColor: "red",
+//           // },
+//           // tabBarShowLabel: false,
+//           tabBarLabel: "Home",
+//           // tabBarIcon: ({ color, focused, size }) => {
+//           //   return (
+//           //     <Ionicons
+//           //       name={focused ? "home" : "home-outline"}
+//           //       size={size}
+//           //       color={color}
+//           //     />
+//           //   );
+//           // },
+//         }}
+//       />
+//       <Tabs.Screen name="profile" options={{ title: "Profile" }} />
+//       <Tabs.Screen name="settings" options={{ title: "Settings" }} />
+//     </Tabs>
+//   );
+// };
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+// export default BottomTab;
 
+import CustomTabBar from "@/component/CustomTabBar";
+import { Tabs } from "expo-router";
+import React from "react";
+
+const BottomTab = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+    <Tabs tabBar={(props) => <CustomTabBar {...props} />}>
       <Tabs.Screen
         name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
+        options={{ title: "Home", tabBarLabel: "Home" }}
       />
       <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
+        name="profile"
+        options={{ title: "Profile", tabBarLabel: "Profile" }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{ title: "Settings", tabBarLabel: "Settings" }}
       />
     </Tabs>
   );
-}
+};
+
+export default BottomTab;
